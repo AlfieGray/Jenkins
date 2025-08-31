@@ -23,6 +23,7 @@ pipeline {
   stage('Code') {
       steps {
           echo "Check the quality of the code."
+          echo "This is a test!!!!"
       }   
   }
   
