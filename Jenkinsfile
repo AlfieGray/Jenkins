@@ -1,48 +1,46 @@
 pipeline {
   agent any
-  environment {
-      DIRECTORY_PATH = 'TBD'
-      TESTING_ENVIRONMENT = 'NA'
-      PRODUCTION_ENVIRONMENT= 'Alfie'
-  }
-  
+
   stages {
-      stage('Build') {
-          steps {
-              echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
-              echo "Compile the code and generate any necessary artefacts."
-          }
+    stage('Build') {
+      steps {
+        echo 'Building project with Maven...'
       }
-  stage('Test') {
+    }
+
+    stage('Unit and Integration Tests') {
       steps {
-          echo "Unit Tests."
-          echo "Integration Tests."
+        echo 'Running tests with JUnit and Maven Surefire/Failsafe...'
       }
-  }
-  
-  stage('Code') {
+    }
+
+    stage('Code Analysis') {
       steps {
-          echo "Check the quality of the code."
-          echo "This is a test!!!!"
-      }   
-  }
-  
-  stage('Deploy') {
-      steps {
-          echo "Deploy the application to a testing environment: ${env.TESTING_ENVIRONMENT}"
+        echo 'Analyzing code quality with SonarQube...'
       }
-  }
-  
-  stage('Approval') {
+    }
+
+    stage('Security Scan') {
       steps {
-          sleep time: 10, unit: 'SECONDS'
-          echo "Approved."
+        echo 'Scanning for vulnerabilities with OWASP Dependency-Check...'
       }
-  }
-  
-  stage('Deploy to Production') {
+    }
+
+    stage('Deploy to Staging') {
       steps {
-          echo "Code has been deployed to Production Environment. (${env.PRODUCTION_ENVIRONMENT})"
+        echo 'Deploying application to AWS EC2 Staging environment...'
+      }
+    }
+
+    stage('Integration Tests on Staging') {
+      steps {
+        echo 'Running integration tests against Staging environment...'
+      }
+    }
+
+    stage('Deploy to Production') {
+      steps {
+        echo 'Deploying application to AWS EC2 Production environment...'
       }
     }
   }
