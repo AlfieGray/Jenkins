@@ -32,6 +32,7 @@ pipeline {
     stage('Security Scan') {
       steps {
         echo 'Scanning for vulnerabilities with OWASP Dependency-Check...'
+        echo 'This is a test!!'
         // Example (uncomment later):
         // sh 'mvn org.owasp:dependency-check-maven:check'
       }
